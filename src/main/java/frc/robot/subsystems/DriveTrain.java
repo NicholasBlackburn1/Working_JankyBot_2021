@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Const;
+import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -42,6 +43,38 @@ public class DriveTrain extends SubsystemBase {
 
     
   }
+
+
+	public void arcadeDrive(final double throttle, final double turn) {
+		drive.arcadeDrive(throttle, turn);
+	}
+
+	public void deadbandedArcadeDrive() {
+		double throttle, turn;
+		if (RobotContainer.m_driverController.getRawAxis(Const.kRightStickX) > 0.1
+				|| RobotContainer.m_driverController.getRawAxis(Const.kRightStickX) < -0.1) {
+			if (RobotContainer.m_driverController.getRawAxis(Const.kRightStickX) < 0) {
+				throttle = -Math.sqrt(Math.abs(RobotContainer.m_driverController.getRawAxis(Const.kRightStickX)));
+			} else {
+				throttle = Math.sqrt(RobotContainer.m_driverController.getRawAxis(Const.kRightStickX));
+			}
+		} else {
+			throttle = 0;
+		}
+		/* check deadband */
+
+		if (RobotContainer.m_driverController.getRawAxis(Const.kLeftStickY) > 0.2
+				|| RobotContainer.m_driverController.getRawAxis(Const.kLeftStickY) < -0.2) {
+			if (RobotContainer.m_driverController.getRawAxis(Const.kLeftStickY) < 0) {
+				turn = -Math.sqrt(Math.abs(RobotContainer.m_driverController.getRawAxis(Const.kLeftStickY)));
+			} else {
+				turn = Math.sqrt(RobotContainer.m_driverController.getRawAxis(Const.kLeftStickY));
+			}
+		} else {
+			turn = 0;
+		}
+		arcadeDrive(throttle, -turn);
+	}
 
 
 
