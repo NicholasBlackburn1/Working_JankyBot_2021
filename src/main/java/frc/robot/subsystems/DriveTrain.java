@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,13 +16,15 @@ import frc.robot.Const;
 import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-
+  /** Defines all the Robot DriveTrain Hardware Here to Be interfaced with the code */
+  
+  // Defines Motor Controllers For drivetrain
   WPI_VictorSPX frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
   WPI_VictorSPX frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
   WPI_VictorSPX backRVictorSPX  = new WPI_VictorSPX(Const.BackR);
   WPI_VictorSPX backLVictorSPX = new WPI_VictorSPX(Const.BackL);
 
+  // Allows Motors to be Controlled as a group
   SpeedControllerGroup leftDriveGroup  = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
   SpeedControllerGroup rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
   

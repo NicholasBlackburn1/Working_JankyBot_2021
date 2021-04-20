@@ -7,8 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DashBoard;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.PowerMonitor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
@@ -21,7 +22,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
+  private final PowerMonitor m_PowerMonitor = new PowerMonitor();
+  private final DashBoard m_DashBoard = new DashBoard(m_driveTrain,m_PowerMonitor);
 
+  // Creates JoyStick Obj
   public static Joystick m_driverController = new Joystick(Const.DriverJoystick);
 
   
@@ -34,6 +38,7 @@ public class RobotContainer {
      * @author A Software dev Uwu
      */
     m_driveTrain.setDefaultCommand(new RunCommand(() -> m_driveTrain.deadbandedArcadeDrive(), m_driveTrain));
+    m_DashBoard.setDefaultCommand(new RunCommand(() -> m_DashBoard.refreshDashData(), m_DashBoard));
   }
 
   /**

@@ -9,6 +9,10 @@ package frc.robot;
 public class Const {
     
     /**
+     * Power Distrobution Panel Canbus id
+     */
+    public static int powerDistPanalID = 0; 
+    /**
      * THese are Victor SPX canBus ids
      */
     public static int FrontR = 1;
@@ -50,4 +54,21 @@ public class Const {
     public static int kLeftStickPress = 9;
     public static int kRightStickPress = 10;
 
+
+    //Dashboard Wigit Sizes
+    public static int kRect_Width = 2;
+    public static int kRect_Hight = 1;
+
+    public static int kDial_Widht = 2;
+    public static int kDial_Hight = 2;
+
+    // Dashboard Tab Names
+    public static String kDashboardTab = "TeleopDash";
+
+    //Dashboard Widget names
+    public static String accelerWidget = "3 axis Acc";
+    public static String robotactiveWidget  ="Is Robot Active";
+    public static String pdpPowerWidget = "PowerGraph";
+    public static String temMonWidget = "Temp Widgt";
+    public static String wattMonWidget = "wattEntry";
 }
