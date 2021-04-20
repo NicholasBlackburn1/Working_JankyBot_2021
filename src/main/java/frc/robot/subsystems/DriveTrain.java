@@ -1,19 +1,35 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
+/** 
+ * DriveTrian's Subsystems \
+ * UwU
+*/
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Const;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {}
 
   public void init(){
-    VictorSPX
+    // Defines Motors Uwu
+    WPI_VictorSPX frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
+    WPI_VictorSPX frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
+    WPI_VictorSPX backRVictorSPX = new WPI_VictorSPX(Const.BackR);
+    WPI_VictorSPX backLVictorSPX = new WPI_VictorSPX(Const.BackL);
+
+    SpeedControllerGroup leftDriveGroup = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
+    SpeedControllerGroup rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
+
+    DifferentialDrive drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
+
+    
   }
 
   @Override
