@@ -15,22 +15,67 @@ import frc.robot.Const;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
+
+  WPI_VictorSPX frontRVictorSPX;
+  WPI_VictorSPX frontLVictorSPX;
+  WPI_VictorSPX backRVictorSPX;
+  WPI_VictorSPX backLVictorSPX;
+
+  SpeedControllerGroup leftDriveGroup;
+  SpeedControllerGroup rightDriveGroup;
+  
+  DifferentialDrive drive;
+
   public DriveTrain() {}
 
   public void init(){
     // Defines Motors Uwu
-    WPI_VictorSPX frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
-    WPI_VictorSPX frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
-    WPI_VictorSPX backRVictorSPX = new WPI_VictorSPX(Const.BackR);
-    WPI_VictorSPX backLVictorSPX = new WPI_VictorSPX(Const.BackL);
+     frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
+     frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
+     backRVictorSPX = new WPI_VictorSPX(Const.BackR);
+     backLVictorSPX = new WPI_VictorSPX(Const.BackL);
 
-    SpeedControllerGroup leftDriveGroup = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
-    SpeedControllerGroup rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
+    leftDriveGroup = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
+    rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
 
-    DifferentialDrive drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
+    drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
     
   }
+
+
+
+  /**
+	 * 
+	 * Sets @param Drivetrain Motor Power in a simple and Organized way
+	 * 
+	 * @author Luke Crumb
+	 */
+	public void setMotorPower(final double left, final double right) {
+		frontLVictorSPX.set(left);
+		backLVictorSPX.set(left);
+		frontRVictorSPX.set(right);
+		backRVictorSPX.set(right);
+	}
+
+
+  /**
+	 * Sets Motor Power to 0
+	 * 
+	 * @param Drivetrain
+	 * @param VictorSpx
+	 * 
+	 * @author Nicholas Blackburn
+	 */
+	public void stop() {
+		backLVictorSPX.set(0);
+		frontLVictorSPX.set(0);
+		backRVictorSPX.set(0);
+		frontRVictorSPX.set(0);
+	}
+
+
+
 
   @Override
   public void periodic() {
