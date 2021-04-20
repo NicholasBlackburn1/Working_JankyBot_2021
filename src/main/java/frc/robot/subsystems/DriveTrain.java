@@ -17,32 +17,18 @@ import frc.robot.RobotContainer;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
 
-  WPI_VictorSPX frontRVictorSPX;
-  WPI_VictorSPX frontLVictorSPX;
-  WPI_VictorSPX backRVictorSPX;
-  WPI_VictorSPX backLVictorSPX;
+  WPI_VictorSPX frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
+  WPI_VictorSPX frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
+  WPI_VictorSPX backRVictorSPX  = new WPI_VictorSPX(Const.BackR);
+  WPI_VictorSPX backLVictorSPX = new WPI_VictorSPX(Const.BackL);
 
-  SpeedControllerGroup leftDriveGroup;
-  SpeedControllerGroup rightDriveGroup;
+  SpeedControllerGroup leftDriveGroup  = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
+  SpeedControllerGroup rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
   
-  DifferentialDrive drive;
+  DifferentialDrive drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
   public DriveTrain() {}
 
-  public void init(){
-    // Defines Motors Uwu
-     frontRVictorSPX = new WPI_VictorSPX(Const.FrontR);
-     frontLVictorSPX = new WPI_VictorSPX(Const.FrontL);
-     backRVictorSPX = new WPI_VictorSPX(Const.BackR);
-     backLVictorSPX = new WPI_VictorSPX(Const.BackL);
-
-    leftDriveGroup = new SpeedControllerGroup(backLVictorSPX,frontLVictorSPX);
-    rightDriveGroup = new SpeedControllerGroup(backRVictorSPX,frontRVictorSPX);
-
-    drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
-
-    
-  }
 
 
 	public void arcadeDrive(final double throttle, final double turn) {
