@@ -11,14 +11,14 @@ public class Const {
     /**
      * Power Distrobution Panel Canbus id
      */
-    public static int powerDistPanalID = 0; 
+    public static int powerDistPanalID = 1; 
     /**
      * THese are Victor SPX canBus ids
      */
     public static int FrontR = 1;
-    public static int FrontL = 2;
-    public static int BackR = 3;
-    public static int BackL = 4;
+    public static int FrontL = 3;
+    public static int BackR = 0;
+    public static int BackL = 2;
 
     /**
      * JoyStick PortNum
