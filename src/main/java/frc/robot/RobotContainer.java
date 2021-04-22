@@ -5,10 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DashBoard;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.PowerMonitor;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,14 +21,24 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_exampleSubsystem = new DriveTrain();
+  private final DriveTrain m_driveTrain = new DriveTrain();
+  private final PowerMonitor m_PowerMonitor = new PowerMonitor();
+  private final DashBoard m_DashBoard = new DashBoard(m_driveTrain,m_PowerMonitor);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // Creates JoyStick Obj
+  public static Joystick m_driverController = new Joystick(Const.DriverJoystick);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    /**
+     * This makes drive train Runnable at default  UwU
+     * @author A Software dev Uwu
+     */
+    m_driveTrain.setDefaultCommand(new RunCommand(() -> m_driveTrain.deadbandedArcadeDrive(), m_driveTrain));
+    m_DashBoard.setDefaultCommand(new RunCommand(() -> m_DashBoard.refreshDashData(), m_DashBoard));
   }
 
   /**
@@ -36,13 +49,5 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {}
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+
 }
