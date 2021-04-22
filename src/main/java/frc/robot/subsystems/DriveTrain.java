@@ -81,6 +81,16 @@ public class DriveTrain extends SubsystemBase {
 	}
 
 
+
+	public void Straferight(final double left, final double right) {
+		frontLVictorSPX.set(-left);
+		backLVictorSPX.set(left);
+		frontRVictorSPX.set(right);
+		backRVictorSPX.set(-right);
+	}
+
+
+
   /**
 	 * Sets Motor Power to 0
 	 * 
