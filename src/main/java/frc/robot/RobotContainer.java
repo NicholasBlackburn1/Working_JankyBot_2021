@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.PowerMonitor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,6 +28,7 @@ public class RobotContainer {
 
   // Creates JoyStick Obj
   public static Joystick m_driverController = new Joystick(Const.DriverJoystick);
+  public static JoystickButton m_Strafe_right,m_Strafe_left;
 
   
   public RobotContainer() {
@@ -39,6 +41,9 @@ public class RobotContainer {
      */
     m_driveTrain.setDefaultCommand(new RunCommand(() -> m_driveTrain.deadbandedArcadeDrive(), m_driveTrain));
     m_DashBoard.setDefaultCommand(new RunCommand(() -> m_DashBoard.refreshDashData(), m_DashBoard));
+
+    m_Strafe_right.whileActiveContinuous(new RunCommand(() -> m_driveTrain.Straferight(Const.strafePower, Const.strafePower), m_driveTrain));
+    m_Strafe_left.whileActiveContinuous(new RunCommand(() -> m_driveTrain.Strafeleft(Const.strafePower, Const.strafePower), m_driveTrain));
   }
 
   /**
@@ -47,7 +52,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    m_Strafe_left = new JoystickButton(m_driverController, Const.kLB);
+    m_Strafe_right = new JoystickButton(m_driverController,Const.kRB);
+  }
 
 
 }

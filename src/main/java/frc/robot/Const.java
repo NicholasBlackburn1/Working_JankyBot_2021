@@ -71,4 +71,7 @@ public class Const {
     public static String pdpPowerWidget = "PowerGraph";
     public static String temMonWidget = "Temp Widgt";
     public static String wattMonWidget = "wattEntry";
+
+    // Motor Straph power 
+    public static double strafePower = 0.5;
 }
